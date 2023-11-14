@@ -32,6 +32,7 @@
       <ons-tab label="アプリ" icon="fa-app-store" page="home.html" active></ons-tab>
       <ons-tab label="証明書" icon="fa-certificate" page="forms.html"></ons-tab>
       <ons-tab label="アップデート情報" icon="fa-clock" page="animations.html"></ons-tab>
+      <ons-tab label="取り消し防止" icon="fa-xmark" page="antirevoke.html"></ons-tab>
     </ons-tabbar>
 
     <script>
@@ -43,7 +44,11 @@
     </script>
   </ons-page>
 </template>
-
+<template id="antirevoke">
+  <ons-oage>
+    
+  </ons-oage>
+</template>
 <template id="sidemenu.html">
   <ons-page>
     <div class="profile-pic">
@@ -166,7 +171,7 @@
 <template id="home.html">
   <ons-page>
     <p class="intro">
-      This is a kitchen sink example that shows off the components of Onsen UI.<br><br>
+必ず取り消し防止を行ってください。使用できなくなる恐れがあります。<br><br>
     </p>
 
     <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
