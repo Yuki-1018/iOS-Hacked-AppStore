@@ -1,16 +1,272 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" >
 <head>
-  <title>Dashboard</title>
-  <link href='/_styles/app.css' rel='stylesheet'>
-  <link href='/admin/_styles/admin.css' rel='stylesheet'>
-  <script src='/admin/index.js'></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8" />
+<meta http-equiv="content-language" content="en-us" />
+<title>Yuki’s AppStore</title>
+<meta name="description" content="This is an unofficial (3rd party) app store for iOS. This is using an enterprise certificate." />
+<meta name="keywords" content="3rd party AppStore,tweak app,iOS jailbreak," />
+<meta property="og:title" content="Yuki’s AppStore" />
+<meta property="og:description" content="unofficial (3rd party) app store for iOS" />
+<meta property="og:site_name" content="Yuki’s AppStore" />
+<meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="subject" content="3rd party AppStore" />
+<meta name="abstract" content="3rd party AppStore" />
+<meta name="author" content="Yuki-1018" />
+<meta name="owner" content="Yuki-1018" />
+<meta name="Targted Geographic Area" content="Japan" />
+<meta name="classification" content="iOS" />
+<meta name="doc-class" content="Draft" />
+<meta name="rating" content="General" />
+<meta name="robots" content="INDEX,FOLLOW" />
+
+  <link rel='stylesheet' href='https://unpkg.com/onsenui/css/onsenui.css'>
+<link rel='stylesheet' href='https://unpkg.com/onsenui/css/onsen-css-components.css'>
+
 </head>
 <body>
+  
 
-  <h1><img src='/admin/_assets/ic_dashboard.svg'> Dashboard <span class='admin-area'>(admin area)</span></h1>
-  <a href='/admin/users.html'>Users &#8594;</a><br />
-  <a href='/'>&#8592; Home</a>
+  
+<!-- partial:index.partial.html -->
+<ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+  <ons-page>
+    <ons-splitter id="appSplitter">
+      <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
+      <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
+</ons-navigator>
 
+<template id="tabbar.html">
+  <ons-page id="tabbar-page">
+    <ons-toolbar>
+      <div class="center">アプリ</div>
+      <div class="right">
+        <ons-toolbar-button onclick="fn.toggleMenu()">
+          <ons-icon icon="ion-ios-menu, material:md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+    <ons-tabbar swipeable id="appTabbar" position="auto">
+      <ons-tab label="アプリ" icon="fa-app-store" page="home.html" active></ons-tab>
+      <ons-tab label="証明書" icon="fa-certificate" page="forms.html"></ons-tab>
+      <ons-tab label="アップデート情報" icon="fa-clock" page="animations.html"></ons-tab>
+      <ons-tab label="取り消し防止" icon="fa-times" page="antirevoke.html"></ons-tab>
+    </ons-tabbar>
+
+    <script>
+      ons.getScriptPage().addEventListener('prechange', function(event) {
+        if (event.target.matches('#appTabbar')) {
+          event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+        }
+      });
+    </script>
+  </ons-page>
+</template>
+
+<template id="sidemenu.html">
+  <ons-page>
+    <div class="profile-pic">
+      <img src="https://monaca.io/img/logos/download_image_onsenui_01.png">
+    </div>
+
+    <ons-list-title>Access</ons-list-title>
+    <ons-list>
+      <ons-list-item onclick="fn.loadView(0)">
+        <div class="left">
+          <ons-icon fixed-width class="list-item__icon" icon="ion-ios-home, material:md-home"></ons-icon>
+        </div>
+        <div class="center">
+          Home
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+      <ons-list-item onclick="fn.loadView(1)">
+        <div class="left">
+          <ons-icon fixed-width class="list-item__icon" icon="ion-ios-create, material:md-edit"></ons-icon>
+        </div>
+        <div class="center">
+          Forms
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+      <ons-list-item onclick="fn.loadView(2)">
+        <div class="left">
+          <ons-icon fixed-width class="list-item__icon" icon="ion-ios-film, material: md-movie-alt"></ons-icon>
+        </div>
+        <div class="center">
+          Animations
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-link"></ons-icon>
+        </div>
+      </ons-list-item>
+    </ons-list>
+
+    <ons-list-title style="margin-top: 10px">Links</ons-list-title>
+    <ons-list>
+      <ons-list-item onclick="fn.loadLink('https://onsen.io/v2/docs/guide/js/')">
+        <div class="left">
+          <ons-icon fixed-width class="list-item__icon" icon="ion-ios-document"></ons-icon>
+        </div>
+        <div class="center">
+          Docs
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+      <ons-list-item onclick="fn.loadLink('https://github.com/OnsenUI/OnsenUI')">
+        <div class="left">
+          <ons-icon fixed-width class="list-item__icon" icon="ion-logo-github"></ons-icon>
+        </div>
+        <div class="center">
+          GitHub
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+      <ons-list-item onclick="fn.loadLink('https://community.onsen.io/')">
+        <div class="left">
+          <ons-icon fixed-width class="list-item__icon" icon="ion-ios-chatboxes"></ons-icon>
+        </div>
+        <div class="center">
+          Forum
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+      <ons-list-item onclick="fn.loadLink('https://twitter.com/Onsen_UI')">
+        <div class="left">
+          <ons-icon fixed-width class="list-item__icon" icon="ion-logo-twitter"></ons-icon>
+        </div>
+        <div class="center">
+          Twitter
+        </div>
+        <div class="right">
+          <ons-icon icon="fa-external-link"></ons-icon>
+        </div>
+      </ons-list-item>
+    </ons-list>
+
+    <script>
+      ons.getScriptPage().onInit = function() {
+        // Set ons-splitter-side animation
+        this.parentElement.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+      };
+    </script>
+
+    <style>
+      .profile-pic {
+        width: 200px;
+        background-color: #fff;
+        margin: 20px auto 10px;
+        border: 1px solid #999;
+        border-radius: 4px;
+      }
+
+      .profile-pic > img {
+        display: block;
+        max-width: 100%;
+      }
+
+      ons-list-item {
+        color: #444;
+      }
+    </style>
+  </ons-page>
+</template>
+<template id="antirevoke.html">
+  <ons-page>
+    fffg
+  </ons-page>
+</template>
+<template id="home.html">
+  <ons-page>
+    <p class="intro">
+必ず取り消し防止を行ってください。使用できなくなる恐れがあります。<br><br>
+    </p>
+
+    <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
+      <div class="title">Pull Hook</div>
+      <div class="content">Simple "pull to refresh" functionality to update data.</div>
+    </ons-card>
+    
+
+    <style>
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="forms.html">
+  <ons-page id="forms-page">
+<ons-card>
+    
+    <div class="title">
+      unknown certificate
+    </div>
+    <div class="content">
+      
+      <ons-list>
+        <ons-list-header>期限</ons-list-header>
+        <ons-list-item>unknown</ons-list-item>
+    
+      </ons-list>
+    </div>
+  </ons-card>
+  </ons-page>
+</template>
+
+<template id="animations.html">
+  <ons-page>
+    
+  </ons-page>
+</template>
+
+<template id="pullHook.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Home</ons-back-button>
+      </div>
+      <div class="center"></div>
+    </ons-toolbar>
+
+  
+  </ons-page>
+</template>
+
+<style>
+  ons-splitter-side[animation=overlay] {
+    border-left: 1px solid #bbb;
+  }
+</style>
+<!-- partial -->
+  <script src='https://unpkg.com/onsenui/js/onsenui.js'></script><script  src="./script.js"></script>
+  
 </body>
 </html>
