@@ -39,7 +39,7 @@ tz = pytz.timezone("Asia/Jakarta")
 timeNow = datetime.now(tz=tz)
 Bot_startTime = time.strftime("%H:%M:%S", time.localtime())
 #dhenzaSelf = LINE("QR")
-dhenzaSelf = LINE("email","paswod")
+dhenzaSelf = LINE("yukimima1018@gmail.com","MimaYuki/1020")
 print("""
 \033["""+str(randint(0,1))+""";"""+str(randint(31,36))+"""m[ %s Start Bot ]\033[0m    
 """%(Bot_startTime))  
